@@ -19,7 +19,11 @@ class FrontMessagesServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        View::composer('front_messages', function ($view) {
+        $this->publishes([
+            __DIR__ . '/src/views/messages.blade.php' => resource_path('views/vendor/front-messages'),
+        ], 'front-messages');
+
+        View::composer('messages', function ($view) {
 
             // set general messages (move flash session messages to template parameters)
             // this simplifies the merge between flash messages (next request) and current request messages
