@@ -19,14 +19,15 @@ class FrontMessagesServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        // publish template view
         $this->publishes([
-            __DIR__ . '/src/views/messages.blade.php' => resource_path('views/vendor/front-messages'),
+            __DIR__ . '/views' => resource_path('views/vendor/front-messages'),
         ], 'front-messages');
 
-        View::composer('messages', function ($view) {
+        // set general messages (move flash session messages to template parameters)
+        // this simplifies the merge between flash messages (next request) and current request messages
+        View::composer('vendor.front-messages.messages', function ($view) {
 
-            // set general messages (move flash session messages to template parameters)
-            // this simplifies the merge between flash messages (next request) and current request messages
             $dangerMessageList = array_merge((array)session()->get('front_messages.danger'), (array)$view->errors->all());
 
             $view->with('front_messages', [
