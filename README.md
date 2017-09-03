@@ -35,7 +35,7 @@ You can add as many messages as you like in every moment.
 
 ### Customize messages view
 
-To show the current version you have to execute the following command:
+You have to execute this command:
 ```sh
 php artisan vendor:publish --tag=front-messages
 ```
